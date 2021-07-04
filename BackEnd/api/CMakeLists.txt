@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(poggers CXX)
+project(api CXX)
 
 include(CheckIncludeFileCXX)
 
