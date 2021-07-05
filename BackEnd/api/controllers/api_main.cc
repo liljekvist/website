@@ -4,6 +4,8 @@ using namespace api;
 
 
 void main::jsonTest(const HttpRequestPtr& req, std::function<void (const HttpResponsePtr &)> &&callback){
+
+
     LOG_DEBUG<< "Test";
     Json::Value ret;
     Json::Value user1;
@@ -33,5 +35,6 @@ void main::jsonTest(const HttpRequestPtr& req, std::function<void (const HttpRes
     ret["user4"]=user4;
     ret["user5"]=user5;
     auto resp=HttpResponse::newHttpJsonResponse(ret);
+    resp->addHeader("Access-Control-Allow-Origin", "*");
     callback(resp);
 }
