@@ -1,8 +1,8 @@
-#include "api_main.h"
+#include "api_jsonController.h"
 using namespace api;
 //add definition of your processing function here
 
-void main::getPosts(const HttpRequestPtr& req, std::function<void (const HttpResponsePtr &)> &&callback){
+void jsonController::getPosts(const HttpRequestPtr& req, std::function<void (const HttpResponsePtr &)> &&callback){
     Json::Value ret;
     auto clientPtr = drogon::app().getDbClient();
     auto f = clientPtr->execSqlAsyncFuture("SELECT * FROM `posts` WHERE 1","default");
