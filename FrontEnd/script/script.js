@@ -24,17 +24,20 @@ $(function() {
         });
     });
 
+            //Adds the posts to a list
     function showPost(obj) {
-        let postId = obj.postId;
+        let postId = obj.postid;
         let title = obj.title;
-        $('<li>').val('<a href="post/',postId,'">', title, '</a>').appendTo('#postList').attr('id', postId).addClass('post');
+        $('<li>').appendTo('#postList').attr('id', postId).addClass('post');
+        makePostLink(postId, title);
     }
-    //Måste fixa så att Titlen går att klicka och tar en till deb sidan. Detta som är nu kommer inte att fungera
-
-
-    $('.post').on('click', function(e){
-        console.log("hje")
-        postId = e.target.id;
-        console.log(postId);
-    });
+            //Makes the posts a link so you can accses the post
+    function makePostLink(postId, title){
+        let post = document.createElement('a');
+        let linkText = document.createTextNode(title);
+        post.appendChild(linkText);
+        post.title = postId;
+        post.href = "http://192.168.0.250/posts/"+postId;
+        document.getElementById(postId).appendChild(post);
+    }
 })
