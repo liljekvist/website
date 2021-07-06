@@ -10,13 +10,13 @@
     </head>
     <body>
         <div class="container">
-            <form action="" method="POST">
-                <label for="¨title">Title</label><br>
-                <input type="text" name="title" id="title" value=""><br><br>
+            <form action="http://192.168.0.250:1000/post" id="post" method="POST">
+                <label for="title">Title</label><br>
+                <input type="text" name="title" id="title" placeholder="Title"><br><br>
                 <label for="msg">Post</label><br>
-                <input type="text" name="msg" id="msg"><br><br>
+                <input type="text" name="msg" id="msg" placeholder="msg" value="medelande"><br><br>
+                <button id="button">Create post</button>
             </form>
-            
         </div>
     </body>
     <script src="../script/website-make-post.js"></script>
