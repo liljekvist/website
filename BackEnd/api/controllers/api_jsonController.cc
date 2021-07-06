@@ -18,7 +18,7 @@ void jsonController::getPosts(const HttpRequestPtr& req, std::function<void (con
                 k["uid"] = row["uid"].as<int>();
                 k["postid"] = row["postid"].as<int>();
                 k["title"] = row["title"].as<std::string>();
-                k["date"] = row["date"].as<int>();
+                k["date"] = row["date"].as<std::string>();
                 ret[i]=k;
                 i++;
             }

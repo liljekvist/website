@@ -37,7 +37,7 @@ $(function() {
         let linkText = document.createTextNode(title);
         post.appendChild(linkText);
         post.title = postId;
-        post.href = "http://192.168.0.250/posts/"+postId;
+        post.href = "http://192.168.0.250/post?id="+postId;
         document.getElementById(postId).appendChild(post);
     }
-})
+});
