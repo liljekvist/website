@@ -2,3 +2,10 @@
     border-width: 1px;
     border-style: solid;
 }
+.makePost{
+    position: absolute;
+    bottom: 100px;
+    left: 200px;
+    border-style: groove;
+    padding: 10px;
+}
