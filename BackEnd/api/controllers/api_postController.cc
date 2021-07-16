@@ -4,7 +4,6 @@ using namespace api;
 
 void postController::makePost(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback, std::string title, std::string msg){
     LOG_DEBUG << "Title: " << title << "     Msg: " << msg;
-    uidHelper helper;
     auto resp = HttpResponse::newRedirectionResponse("http://192.168.0.250/");
     int uid = 0;
     std::string uuid = req->getCookie("uuid");

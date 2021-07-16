@@ -3,13 +3,15 @@
 #include <drogon/HttpRequest.h>
 #include <drogon/HttpClient.h>
 #include <trantor/net/EventLoopThread.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+#include "api_funcHelper.h"
+#include "api_dbHelper.h"
+
 
 class uidHelper
 {
   public:
     const int addUIDtoDB(std::string uuid);
     const int uidFromUuid(std::string uuid);
+    funcHelper stuff;
+    dbHelper db;
 };
