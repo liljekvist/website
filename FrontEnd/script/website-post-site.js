@@ -17,8 +17,8 @@ $(function(){
         const postTitle = obj.title;
         const postText = obj.msg;
         const pageDate = document.getElementById('date');
-        const pageTitle = document.getElementById('title');
-        const pageText = document.getElementById('text');
+        const pageTitle = document.getElementById('pageTitle');
+        const pageText = document.getElementById('pageText');
         pageDate.appendChild(document.createTextNode('Date: ' + postDate));
         pageTitle.appendChild(document.createTextNode(postTitle));
         pageText.appendChild(document.createTextNode(postText));

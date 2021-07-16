@@ -12,9 +12,14 @@
         <div class="viewPost">
             <!--Epic post-->
             <div id="date"></div> 
-            <div id="title"></div>
-            <div id="text"></div>
-            <div id="commentSection"></div> <!--No code as of now-->
+            <div id="pageTitle"></div>
+            <div id="pageText"></div>
+            <div id="commentSection">
+                <form action="#"> <!--Action will be backend mby. Or i will sen via a POST, we'll see-->
+                    <textarea id="cInput" name="cinput" rows="4" cols="50" placeholder="Post comment"></textarea>
+                    <button id="button">Comment</button>
+                </form>
+            </div> <!--No code as of now-->
         </div>
     </body>
     <script src="../script/website-post-site.js"></script>

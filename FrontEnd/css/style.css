@@ -9,7 +9,7 @@
     border-style: groove;
     padding: 10px;
 }
-#title{
+#pageTitle{
     font-size: 2em;
     margin: 10px;
     font-weight: bold;
@@ -17,6 +17,6 @@
 #date{
     margin: 10px;
 }
-#text{
+#pageText{
     margin: 10px;
 }
