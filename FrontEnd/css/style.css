@@ -9,3 +9,14 @@
     border-style: groove;
     padding: 10px;
 }
+#title{
+    font-size: 2em;
+    margin: 10px;
+    font-weight: bold;
+}
+#date{
+    margin: 10px;
+}
+#text{
+    margin: 10px;
+}
