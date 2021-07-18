@@ -13,19 +13,9 @@ const int uidHelper::addUIDtoDB(std::string uuid){
         if(value == -1){
             loop = false;
             std::ostringstream oss1;
-            oss1 << "INSERT INTO `users`(`uid`, `uuid`) VALUES (" << randnumber << ",'" << uuid << "')";
-            auto q = clientPtr->execSqlAsyncFuture(oss1.str(), "default");
-            try
-            {
-                auto r2 = q.get();
-                return randnumber;
-            }
-            catch (int e)
-            {
-                std::cerr << "errors:" << e << std::endl;
-            }
+            oss1 << "INSERT INTO `users`(`uid`, `uuid`) VALUES (" << randnumber << ",'" << uuid << "'a)";
+            db.insertToDb(oss1.str());
         }
-        //ändra till ny func
     }
     return -1;
 }

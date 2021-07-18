@@ -43,6 +43,7 @@ void postController::makePost(const HttpRequestPtr &req, std::function<void(cons
 void postController::getPost(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback, int postid){
     Json::Value jsonArray;
     auto clientPtr = drogon::app().getDbClient();
+    //använd dbHelper här. behöver ny Func för det dock
     std::ostringstream oss1;
     oss1 << "SELECT * FROM `posts` WHERE `postid` = '" << postid << "'";
     auto q = clientPtr->execSqlAsyncFuture(oss1.str(), "default");
