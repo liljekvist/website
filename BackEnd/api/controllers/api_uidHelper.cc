@@ -15,6 +15,7 @@ const int uidHelper::addUIDtoDB(std::string uuid){
             std::ostringstream oss1;
             oss1 << "INSERT INTO `users`(`uid`, `uuid`) VALUES (" << randnumber << ",'" << uuid << "'a)";
             db.insertToDb(oss1.str());
+            return randnumber;
         }
     }
     return -1;
