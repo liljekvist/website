@@ -23,5 +23,6 @@ class postController:public drogon::HttpController<postController>
      void makePost(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback, std::string title, std::string msg);
      void getPost(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback, int postid);
      uidHelper helper;
+     dbHelper db;
 };
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <drogon/HttpController.h>
 #include <cstring>
+#include "api_dbHelper.h"
 using namespace drogon;
 namespace api
 {
@@ -19,5 +20,6 @@ class jsonController:public drogon::HttpController<jsonController>
     // void get(const HttpRequestPtr& req,std::function<void (const HttpResponsePtr &)> &&callback,int p1,std::string p2);
     // void your_method_name(const HttpRequestPtr& req,std::function<void (const HttpResponsePtr &)> &&callback,double p1,int p2) const;
     void getPosts(const HttpRequestPtr& req, std::function<void (const HttpResponsePtr &)> &&callback);
+    dbHelper db;
 };
 }

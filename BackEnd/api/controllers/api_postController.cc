@@ -42,32 +42,20 @@ void postController::makePost(const HttpRequestPtr &req, std::function<void(cons
 
 void postController::getPost(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback, int postid){
     Json::Value jsonArray;
-    auto clientPtr = drogon::app().getDbClient();
-    //använd dbHelper här. behöver ny Func för det dock
-    std::ostringstream oss1;
-    oss1 << "SELECT * FROM `posts` WHERE `postid` = '" << postid << "'";
-    auto q = clientPtr->execSqlAsyncFuture(oss1.str(), "default");
-    try
+    auto result = db.getDBResultObj<int>("posts", "postid", postid, false);
+    int i = 0;
+    for (auto row : result)
     {
-        auto result = q.get();
-        int i = 0;
-        for (auto row : result)
-        {
-            jsonArray["uid"] = row["uid"].as<int>();
-            jsonArray["postid"] = row["postid"].as<int>();
-            jsonArray["title"] = row["title"].as<std::string>();
-            jsonArray["msg"] = row["msg"].as<std::string>();
-            jsonArray["date"] = row["date"].as<std::string>();
-            i++;
-        }
-        //Kort error check då jag inte kan ta en row utan behöver loopa dom tills vidare.
-        if(i > 1){
-            LOG_DEBUG << "Error: Multiple rows selected.";
-        }
+        jsonArray["uid"] = row["uid"].as<int>();
+        jsonArray["postid"] = row["postid"].as<int>();
+        jsonArray["title"] = row["title"].as<std::string>();
+        jsonArray["msg"] = row["msg"].as<std::string>();
+        jsonArray["date"] = row["date"].as<std::string>();
+        i++;
     }
-    catch (int e)
-    {
-        std::cerr << "errors:" << e << std::endl;
+    //Kort error check då jag inte kan ta en row utan behöver loopa dom tills vidare.
+    if(i > 1){
+        LOG_DEBUG << "Error: Multiple rows selected.";
     }
 
     auto resp=HttpResponse::newHttpJsonResponse(jsonArray);
