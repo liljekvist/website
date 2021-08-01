@@ -15,7 +15,7 @@ const int uidHelper::addUIDtoDB(std::string uuid){
             loop = false;
             //vill göra all str formatering i dbHelper. Detta är en ful lösning.
             std::ostringstream oss1;
-            oss1 << "INSERT INTO `users`(`uid`, `uuid`) VALUES (" << randnumber << ",'" << uuid << "'a)";
+            oss1 << "INSERT INTO `users`(`uid`, `uuid`) VALUES (" << randnumber << ",'" << uuid << "')";
             db.insertToDb(oss1.str());
             return randnumber;
         }

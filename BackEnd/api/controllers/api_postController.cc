@@ -25,7 +25,9 @@ void postController::makePost(const HttpRequestPtr &req, std::function<void(cons
     auto clientPtr = drogon::app().getDbClient();
     std::string dateStr = date.roundDay().toDbStringLocal();
     std::ostringstream oss1;
+    //egen funktion i dbhelper för detta 
     oss1 << "INSERT INTO `posts`(`postid`, `uid`, `title`, `msg`, `date`) VALUES (NULL," << uid << ",'" << title << "','" << msg << "','" << dateStr << "')";
+    //LOG_DEBUG << oss1.str();
     auto q = clientPtr->execSqlAsyncFuture(oss1.str(), "default");
     try
     {
@@ -35,6 +37,7 @@ void postController::makePost(const HttpRequestPtr &req, std::function<void(cons
     {
         std::cerr << "errors:" << e << std::endl;
     }
+    db.makeNewTableForPost(db.getDBResult<int, int>("posts", "postid", "uid", uid));
     resp->addHeader("Access-Control-Allow-Origin", "*"); //Fix för CORS
     callback(resp);
 }

@@ -90,6 +90,22 @@ class dbHelper {
       //Måste Returna något men onödingt att skapa ett tomt result obj för det. Annan lösning måste finnas.
   }
 
+//CREATE TABLE post_X (id INT NOT NULL AUTO_INCREMENT, commentuid INT, message LONGTEXT, upvotes INT, PRIMARY KEY (id));
+  void makeNewTableForPost(const int postid){
+    auto clientPtr = drogon::app().getDbClient();
+    std::ostringstream ossthing;
+    ossthing << "CREATE TABLE comments_" << postid << " (id INT NOT NULL AUTO_INCREMENT, commentuid INT, message LONGTEXT, date TEXT(255), upvotes INT, PRIMARY KEY (id));";
+    auto f = clientPtr->execSqlAsyncFuture(ossthing.str(),"default");
+      try
+      {
+          auto r = f.get();
+      }
+      catch (int e)
+      {
+          std::cerr << "Errors:" << e << std::endl;
+      }
+  }
+
   //Mycket mer preformence snällt att använda detta sätt men också mer kod att kladda med.
   //template <> const std::string getDBResult<std::string>(std::string table, std::string column, std::string key, std::string value);
 };
