@@ -22,3 +22,13 @@ void jsonController::getPosts(const HttpRequestPtr& req, std::function<void (con
     resp->addHeader("Access-Control-Allow-Origin", "*"); //Fix för CORS
     callback(resp);
 }
+
+void jsonController::getUidFromUuid(const HttpRequestPtr& req, std::function<void (const HttpResponsePtr &)> &&callback, std::string uuid){
+    Json::Value json;
+    auto uid = uh.uidFromUuid(uuid);
+    json["uid"] = uid;
+    json["uuid"] = uuid;
+    auto resp=HttpResponse::newHttpJsonResponse(json);
+    resp->addHeader("Access-Control-Allow-Origin", "*"); //Fix för CORS
+    callback(resp);
+}
