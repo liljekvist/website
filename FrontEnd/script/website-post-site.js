@@ -3,7 +3,7 @@ $(function(){
     /**Get and show post and existing comments*/
     try {
         $.ajax({
-            url: 'http://192.168.0.250:1000/post?postid=' + id,
+            url: 'http://192.168.0.250:1000/json/post?postid=' + id,
             type: 'GET',
             success: function(result){
                 printPost(result);

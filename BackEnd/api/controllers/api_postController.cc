@@ -23,7 +23,7 @@ void postController::makePost(const HttpRequestPtr &req, std::function<void(cons
 
     auto date = trantor::Date::date();
     auto clientPtr = drogon::app().getDbClient();
-    std::string dateStr = date.roundDay().toDbStringLocal();
+    std::string dateStr = date.roundSecond().toDbStringLocal();
     std::ostringstream oss1;
     //egen funktion i dbhelper för detta 
     oss1 << "INSERT INTO `posts`(`postid`, `uid`, `title`, `msg`, `date`) VALUES (NULL," << uid << ",'" << title << "','" << msg << "','" << dateStr << "')";
@@ -42,26 +42,44 @@ void postController::makePost(const HttpRequestPtr &req, std::function<void(cons
     callback(resp);
 }
 
-
-void postController::getPost(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback, int postid){
-    Json::Value jsonArray;
-    auto result = db.getDBResultObj<int>("posts", "postid", postid, false);
-    int i = 0;
-    for (auto row : result)
+void postController::makeComment(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback, int uid, int postid, std::string msg){
+    auto resp = HttpResponse::newRedirectionResponse("http://192.168.0.250/");
+    auto date = trantor::Date::date();
+    auto clientPtr = drogon::app().getDbClient();
+    std::string dateStr = date.roundSecond().toDbStringLocal();
+    std::ostringstream oss1;
+    oss1 << "INSERT INTO `comments_" << postid << "`(`id`, `commentuid`, `message`, `date`, `upvotes`) VALUES (NULL," << uid << ",'" << msg << "','" << dateStr << "',0)";
+    auto q = clientPtr->execSqlAsyncFuture(oss1.str(), "default");
+    try
     {
-        jsonArray["uid"] = row["uid"].as<int>();
-        jsonArray["postid"] = row["postid"].as<int>();
-        jsonArray["title"] = row["title"].as<std::string>();
-        jsonArray["msg"] = row["msg"].as<std::string>();
-        jsonArray["date"] = row["date"].as<std::string>();
-        i++;
+        auto result = q.get();
     }
-    //Kort error check då jag inte kan ta en row utan behöver loopa dom tills vidare.
-    if(i > 1){
-        LOG_DEBUG << "Error: Multiple rows selected.";
+    catch (int e)
+    {
+        std::cerr << "errors:" << e << std::endl;
     }
 
-    auto resp=HttpResponse::newHttpJsonResponse(jsonArray);
     resp->addHeader("Access-Control-Allow-Origin", "*"); //Fix för CORS
     callback(resp);
 }
+
+/*void postController::makeVote(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback, int uid, int postid, int vote){
+    auto resp = HttpResponse::newRedirectionResponse("http://192.168.0.250/");
+    auto date = trantor::Date::date();
+    auto clientPtr = drogon::app().getDbClient();
+    std::string dateStr = date.roundSecond().toDbStringLocal();
+    std::ostringstream oss1;
+    oss1 << "INSERT INTO `comments_" << postid << "`(`id`, `commentuid`, `message`, `date`, `upvotes`) VALUES (NULL," << uid << ",'" << msg << "','" << dateStr << "',0)";
+    auto q = clientPtr->execSqlAsyncFuture(oss1.str(), "default");
+    try
+    {
+        auto result = q.get();
+    }
+    catch (int e)
+    {
+        std::cerr << "errors:" << e << std::endl;
+    }
+
+    resp->addHeader("Access-Control-Allow-Origin", "*"); //Fix för CORS
+    callback(resp);
+}*/
