@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -14,11 +15,13 @@
             <div id="date"></div> 
             <div id="pageTitle"></div>
             <div id="pageText"></div>
-            <div id="commentSection">
-                <form action="#"> <!--Action will be backend mby. Or i will sen via a POST, we'll see-->
+            <div id="makeComment">
+                <form id="comment" method="POST" autocomplete="off">
                     <textarea id="cInput" name="cinput" rows="4" cols="50" placeholder="Post comment"></textarea>
                     <button id="button">Comment</button>
                 </form>
+            </div>
+            <div id="commentSection">
             </div> <!--No code as of now-->
         </div>
     </body>
