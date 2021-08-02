@@ -28,15 +28,7 @@ void postController::makePost(const HttpRequestPtr &req, std::function<void(cons
     //egen funktion i dbhelper för detta 
     oss1 << "INSERT INTO `posts`(`postid`, `uid`, `title`, `msg`, `date`) VALUES (NULL," << uid << ",'" << title << "','" << msg << "','" << dateStr << "')";
     //LOG_DEBUG << oss1.str();
-    auto q = clientPtr->execSqlAsyncFuture(oss1.str(), "default");
-    try
-    {
-        auto result = q.get();
-    }
-    catch (int e)
-    {
-        std::cerr << "errors:" << e << std::endl;
-    }
+    db.insertToDb(oss1.str());
     db.makeNewTableForPost(db.getDBResult<int, int>("posts", "postid", "uid", uid));
     resp->addHeader("Access-Control-Allow-Origin", "*"); //Fix för CORS
     callback(resp);
@@ -49,16 +41,7 @@ void postController::makeComment(const HttpRequestPtr &req, std::function<void(c
     std::string dateStr = date.roundSecond().toDbStringLocal();
     std::ostringstream oss1;
     oss1 << "INSERT INTO `comments_" << postid << "`(`id`, `commentuid`, `message`, `date`, `upvotes`) VALUES (NULL," << uid << ",'" << msg << "','" << dateStr << "',0)";
-    auto q = clientPtr->execSqlAsyncFuture(oss1.str(), "default");
-    try
-    {
-        auto result = q.get();
-    }
-    catch (int e)
-    {
-        std::cerr << "errors:" << e << std::endl;
-    }
-
+    db.insertToDb(oss1.str());
     resp->addHeader("Access-Control-Allow-Origin", "*"); //Fix för CORS
     callback(resp);
 }
