@@ -9,7 +9,7 @@ $(function(){
                 printPost(result);
             }
         })
-        $.getJson('http://192.168.0.250:1000/json/getComments', function(comment){
+        $.getJson('http://192.168.0.250:1000/json/getComments?postid=' + id, function(comment){
             $.each(comment, function(value) {
                 printComment(value);
             })
