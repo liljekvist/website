@@ -9,10 +9,13 @@ $(function(){
                 printPost(result);
             }
         })
-        $.getJson('http://192.168.0.250:1000/json/getComments?postid=' + id, function(comment){
-            $.each(comment, function(value) {
-                printComment(value);
-            })
+        $.ajax({
+            url: 'http://192.168.0.250:1000/json/getComments?postid=' + id,
+            type: 'GET',
+            success: function(result){
+                printComment(result);
+                //Kommer inte att fungera
+            }
         })
     } catch (error) {
         console.log('Micke är stinky och detta är felet: ' + error);
@@ -29,23 +32,29 @@ $(function(){
         pageTitle.appendChild(document.createTextNode(postTitle));
         pageText.appendChild(document.createTextNode(postText));
     };
+
     function printComment(obj) {
+        //komer inte att fungera. Allt kommern nog att hamna i samma "comment"
         const commentMsg = obj.msg;
         const commentDate = obj.date;
-        const commentSection = document.getElementById('commentSection');
-        commentSection.appendChild(document.createTextNode('Date: ', + commentDate));
-        commentSection.appendChild(document.createTextNode(commentMsg));
+        $('<li>').appendTo('#comments').addClass('comment', 'active'); //Väldigt fult måste ändras. Kanske $(this) kan fungera men tror inte det
+        $('active').appendChild(document.createTextNode('Date: ', + commentDate));
+        $('active').appendChild(document.createTextNode(commentMsg));
+        $('active').removeClass('active');
     }
-    $('#comment').submit(function(){
-        localStorage.setItem('text', 'test');
+
+    $('#button').on('click', function(){
+        alert("hej")
         //const uid = sessionStorage.getItem(uid);
         const comment = $('#cInput').val();
+        localStorage.setItem('test', comment);
         /*
         $.ajax({
             url: 'http://192.168.0.250:1000/json/makeComment?uid=' + uid + '&message=' + comment,
             type: 'POST'
         })
         */
+        $('#cInput').val('');
         return false;
     })
 });
