@@ -1,4 +1,26 @@
 $(function() {
+    function checkCookie() {
+        var uuid = getCookie();
+        console.log(uuid);
+    
+        if(uuid != null) {
+            console.log(uuid);
+            sendUUID(uuid);
+        } else {
+            //vad den ska göra ifall det inte finns cookie 
+        }
+    }
+
+    function getCookie(){
+        const allCookies = document.cookie.split(';');
+        console.log(allCookies);
+    }
+
+    async function sendUUID(uuid){
+        const response = await fetch('/json/getUid?uuid=' + uuid);
+        console.log(response);
+    }
+    sessionStorage.setItem("test", "testar");
     //First Time Page StartUp
     /* Set coockies USE LATER
     function setCookie(uid, uuid, date){
@@ -11,6 +33,7 @@ $(function() {
         document.cookie = uid + '=' + (uuid || '') + expires + '; path=/'
     }
     setCookie();
+
     */
 
             //Get UUID array
@@ -40,4 +63,5 @@ $(function() {
         post.href = "http://192.168.0.250/post?id="+postId;
         document.getElementById(postId).appendChild(post);
     }
+    checkCookie();
 });

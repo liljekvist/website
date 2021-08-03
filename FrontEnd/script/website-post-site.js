@@ -9,16 +9,9 @@ $(function(){
                 printPost(result);
             }
         })
-        $.ajax({
-            url: 'http://192.168.0.250:1000/json/getComments?postid=' + id,
-            type: 'GET',
-            success: function(result){
-                printComment(result);
-                //Kommer inte att fungera
-            }
-        })
+        
     } catch (error) {
-        console.log('Micke är stinky och detta är felet: ' + error);
+        console.log('Error i api' + error);
         return null;
     }
     function printPost(obj) {
@@ -33,28 +26,38 @@ $(function(){
         pageText.appendChild(document.createTextNode(postText));
     };
 
-    function printComment(obj) {
-        //komer inte att fungera. Allt kommern nog att hamna i samma "comment"
-        const commentMsg = obj.msg;
-        const commentDate = obj.date;
-        $('<li>').appendTo('#comments').addClass('comment', 'active'); //Väldigt fult måste ändras. Kanske $(this) kan fungera men tror inte det
-        $('active').appendChild(document.createTextNode('Date: ', + commentDate));
-        $('active').appendChild(document.createTextNode(commentMsg));
-        $('active').removeClass('active');
+    $("#button").on('click', function(){
+        $.post("http://192.168.0.250:1000/postComment",
+        {
+            uid: 0, //måste hämta
+            postid: id,
+            msg: $('#cInput').val(),
+        },
+        //varför data och status måste vara på en speciell plats istället för keys är beyond me
+        function(data, status){
+            console.log("\nStatus: " + status);
+        });
+        $('#cInput').val('');
+    });
+
+    async function fetchComment() {
+        const response = await fetch('http://192.168.0.250:1000/json/getComments?postid='+id);
+        const data = await response.json();
+        let comment = [];
+
+        data.forEach(obj => {
+            Object.entries(obj).forEach(([key, value]) => {
+                comment.push(`${key} ${value}`)
+            });
+            printComment(comment);
+            comment = [];
+        });
     }
 
-    $('#button').on('click', function(){
-        alert("hej")
-        //const uid = sessionStorage.getItem(uid);
-        const comment = $('#cInput').val();
-        localStorage.setItem('test', comment);
-        /*
-        $.ajax({
-            url: 'http://192.168.0.250:1000/json/makeComment?uid=' + uid + '&message=' + comment,
-            type: 'POST'
-        })
-        */
-        $('#cInput').val('');
-        return false;
-    })
+    function printComment (key) { // inte vara async då det inte finns något att vänta på
+        console.log(key);
+        let msg = key[1].substring(8)
+        $('<li>').appendTo('#comments').attr('id', key).addClass('comment').text(msg);
+    }
+    fetchComment();
 });
