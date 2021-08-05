@@ -12,7 +12,8 @@ void postController::makePost(const HttpRequestPtr &req, std::function<void(cons
         std::string uuid = drogon::utils::getUuid();
         auto date = trantor::Date(2022, 01, 01);
         Cookie c("uuid", uuid);
-        //c.setSecure(true);
+        c.setSecure(true);
+        c.setHttpOnly(false);
         c.setExpiresDate(date);
         c.setPath("http://192.168.0.250/");
         uid = helper.addUIDtoDB(uuid);

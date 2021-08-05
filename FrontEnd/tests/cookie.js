@@ -1,3 +1,3 @@
 async function fetchCookie() {
-    console.log($.cookie('uuid'));
+    console.log(document.cookie);
 }
