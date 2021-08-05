@@ -3,7 +3,7 @@ $(function(){
     /**Get and show post and existing comments*/
     try {
         $.ajax({
-            url: 'http://192.168.0.250:1000/json/post?postid=' + id,
+            url: 'https://192.168.0.250:1000/json/post?postid=' + id,
             type: 'GET',
             success: function(result){
                 printPost(result);
@@ -27,7 +27,7 @@ $(function(){
     };
 
     $("#button").on('click', function(){
-        $.post("http://192.168.0.250:1000/postComment",
+        $.post("https://192.168.0.250:1000/postComment",
         {
             uid: 0, //måste hämta
             postid: id,
@@ -41,7 +41,7 @@ $(function(){
     });
 
     async function fetchComment() {
-        const response = await fetch('http://192.168.0.250:1000/json/getComments?postid='+id);
+        const response = await fetch('https://192.168.0.250:1000/json/getComments?postid='+id);
         const data = await response.json();
         let comment = [];
 

@@ -41,7 +41,7 @@ $(function() {
             //Value is the UID and UUID
             //Name is user
             //Get post from API
-    $.getJSON('http://192.168.0.250:1000/json/getPosts', function(data){
+    $.getJSON('https://192.168.0.250:1000/json/getPosts', function(data){
         $.each(data, function (name, value) {
             showPost(value);
         });
@@ -60,7 +60,7 @@ $(function() {
         let linkText = document.createTextNode(title);
         post.appendChild(linkText);
         post.title = postId;
-        post.href = "http://192.168.0.250/post?id="+postId;
+        post.href = "https://192.168.0.250/post?id="+postId;
         document.getElementById(postId).appendChild(post);
     }
     checkCookie();
