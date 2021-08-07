@@ -4,7 +4,7 @@ using namespace api;
 
 void postController::makePost(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback, std::string title, std::string msg){
     LOG_DEBUG << "Title: " << title << "     Msg: " << msg;
-    auto resp = HttpResponse::newRedirectionResponse("http://192.168.0.250/");
+    auto resp = HttpResponse::newRedirectionResponse("https://192.168.0.250/");
     int uid = 0;
     std::string uuid = req->getCookie("uuid");
     if (uuid.empty())
@@ -29,7 +29,7 @@ void postController::makePost(const HttpRequestPtr &req, std::function<void(cons
 }
 
 void postController::makeComment(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback, int uid, int postid, std::string msg){
-    auto resp = HttpResponse::newRedirectionResponse("http://192.168.0.250/");
+    auto resp = HttpResponse::newRedirectionResponse("https://192.168.0.250/");
     auto date = trantor::Date::date();
     auto clientPtr = drogon::app().getDbClient();
     std::string dateStr = date.roundSecond().toDbStringLocal();
@@ -60,3 +60,14 @@ void postController::makeComment(const HttpRequestPtr &req, std::function<void(c
     resp->addHeader("Access-Control-Allow-Origin", "*"); //Fix för CORS
     callback(resp);
 }*/
+
+void postController::registerUser(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback){
+    //i js checka om användaren redan har en cookie.
+    auto resp = HttpResponse::newRedirectionResponse("https://192.168.0.250/");
+    std::string uuid = drogon::utils::getUuid();
+    auto c = ch.makeUserCookie(uuid);
+    int uid = helper.addUIDtoDB(uuid);
+    resp->addCookie(c);
+    resp->addHeader("Access-Control-Allow-Origin", "*"); //Fix för CORS
+    callback(resp);
+}

@@ -18,6 +18,7 @@ class jsonController:public drogon::HttpController<jsonController>
     ADD_METHOD_TO(jsonController::getPosts,"/json/getPosts",Get);
     ADD_METHOD_TO(jsonController::getUidFromUuid,"/json/getUid?uuid={1}",Get);
     ADD_METHOD_TO(jsonController::getCommentsForPost,"/json/getComments?postid={1}",Get);
+    //bör ändras till post för extra skydd mot uuid bruteforceS
     ADD_METHOD_TO(jsonController::uuidInDB,"/json/uuidInDb?uuid={1}",Get);
 
 

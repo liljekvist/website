@@ -1,2 +1,29 @@
-<title>API</title>
-<h1>API Default Page</h1>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Startpage</title>
+        <link rel="stylesheet" href="css/style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    </head>
+    <body>
+        <div class="userIdBox">
+            User ID: <span id="userId"></span><br>
+            UUID: <span id="uuid"></span>
+        </div>
+        <div id="postListContainer">
+            <u id="postList">
+                <!--Post from API-->
+            </u>
+        </div>
+        <div class="makePost">
+            <h1>Make post</h1>
+            <form action="submit/index.html">
+                <input type="text" id="fpost" name="postTitle" placeholder="A good title">
+            </form>
+        </div>
+    </body>
+    <script src="script/website-main.js"></script>
+</html>
