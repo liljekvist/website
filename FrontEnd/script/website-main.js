@@ -1,11 +1,10 @@
 $(function() {
     function checkCookie() {
-        var uuid = getCookie();
-        console.log(uuid);
-    
+        let uuid = getCookie();
         if(uuid != null) {
-            console.log(uuid);
-            sendUUID(uuid);
+            uuid = uuid.substr(5);
+            $('#uuid').text(uuid);
+            getUID(uuid);
         } else {
             //vad den ska göra ifall det inte finns cookie 
         }
@@ -13,14 +12,25 @@ $(function() {
 
     function getCookie(){
         const allCookies = document.cookie.split(';');
-        console.log(allCookies);
+        for (let i = 0; i < allCookies.length; i++) {
+            if (allCookies[i].substr(0, 4) == 'uuid') {
+                return allCookies[i];
+            }
+        }
     }
 
-    async function sendUUID(uuid){
-        const response = await fetch('/json/getUid?uuid=' + uuid);
-        console.log(response);
+    async function getUID(uuid){
+        await fetch('https://192.168.0.250:1000/json/getUid?uuid=' + uuid)
+        .then(response => response.json())
+        .then(data => useUid(data));
     }
-    sessionStorage.setItem("test", "testar");
+
+    function useUid(uid) {
+        uid = uid.uid;
+        sessionStorage.setItem('uid', uid);
+        $('#userId').text(uid);
+    }
+
     //First Time Page StartUp
     /* Set coockies USE LATER
     function setCookie(uid, uuid, date){
