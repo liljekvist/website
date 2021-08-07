@@ -9,13 +9,8 @@ void postController::makePost(const HttpRequestPtr &req, std::function<void(cons
     std::string uuid = req->getCookie("uuid");
     if (uuid.empty())
     {
-        std::string uuid = drogon::utils::getUuid();
-        auto date = trantor::Date(2022, 01, 01);
-        Cookie c("uuid", uuid);
-        c.setSecure(true);
-        c.setHttpOnly(false);
-        c.setExpiresDate(date);
-        c.setPath("http://192.168.0.250/");
+        uuid = drogon::utils::getUuid();
+        auto c = ch.makeUserCookie(uuid);
         uid = helper.addUIDtoDB(uuid);
         resp->addCookie(c);
     }
@@ -24,12 +19,9 @@ void postController::makePost(const HttpRequestPtr &req, std::function<void(cons
     }
 
     auto date = trantor::Date::date();
-    auto clientPtr = drogon::app().getDbClient();
     std::string dateStr = date.roundSecond().toDbStringLocal();
     std::ostringstream oss1;
-    //egen funktion i dbhelper för detta 
     oss1 << "INSERT INTO `posts`(`postid`, `uid`, `title`, `msg`, `date`) VALUES (NULL," << uid << ",'" << title << "','" << msg << "','" << dateStr << "')";
-    //LOG_DEBUG << oss1.str();
     db.insertToDb(oss1.str());
     db.makeNewTableForPost(db.getDBResult<int, int>("posts", "postid", "uid", uid));
     resp->addHeader("Access-Control-Allow-Origin", "*"); //Fix för CORS

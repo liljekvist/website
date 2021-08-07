@@ -78,3 +78,11 @@ void jsonController::getPost(const HttpRequestPtr &req, std::function<void(const
     resp->addHeader("Access-Control-Allow-Origin", "*"); //Fix för CORS
     callback(resp);
 }
+
+void jsonController::uuidInDB(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback, std::string uuid){
+    Json::Value jsonArray;
+    jsonArray["uuidExists"] = uh.uuidExists(uuid);
+    auto resp=HttpResponse::newHttpJsonResponse(jsonArray);
+    resp->addHeader("Access-Control-Allow-Origin", "*"); //Fix för CORS
+    callback(resp);
+}

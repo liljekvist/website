@@ -53,10 +53,10 @@ class dbHelper {
     auto q = clientPtr -> execSqlAsyncFuture(query, "default");
     try {
       auto r2 = q.get();
-    } catch (int e) {
-      std::cerr << "errors:" << e << std::endl;
+      } catch (int e) {
+        std::cerr << "errors:" << e << std::endl;
+      }
     }
-  }
 
   //NTS: Använd denna funktion istället för att checka med getDBResult.
   //const bool existsInTable(std::string table, std::string column, std::string value){

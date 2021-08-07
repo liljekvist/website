@@ -29,3 +29,13 @@ const int uidHelper::uidFromUuid(std::string uuid){
     LOG_DEBUG << "uidFromUuid         " << uid;
     return uid;
 }
+
+const bool uidHelper::uuidExists(std::string uuid){
+    std::string newuuid = db.getDBResult<std::string, std::string>("users", "uuid", "uuid", uuid);
+    if(newuuid.empty()){
+        return false;
+    }
+    else {
+        return true;
+    }
+}

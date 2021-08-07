@@ -18,6 +18,8 @@ class jsonController:public drogon::HttpController<jsonController>
     ADD_METHOD_TO(jsonController::getPosts,"/json/getPosts",Get);
     ADD_METHOD_TO(jsonController::getUidFromUuid,"/json/getUid?uuid={1}",Get);
     ADD_METHOD_TO(jsonController::getCommentsForPost,"/json/getComments?postid={1}",Get);
+    ADD_METHOD_TO(jsonController::uuidInDB,"/json/uuidInDb?uuid={1}",Get);
+
 
     METHOD_LIST_END
     // your declaration of processing function maybe like this:
@@ -27,6 +29,7 @@ class jsonController:public drogon::HttpController<jsonController>
     void getUidFromUuid(const HttpRequestPtr& req, std::function<void (const HttpResponsePtr &)> &&callback, std::string uuid);
     void getCommentsForPost(const HttpRequestPtr& req, std::function<void (const HttpResponsePtr &)> &&callback, const int postid);
     void getPost(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback, int postid);
+    void uuidInDB(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback, std::string uuid);
     dbHelper db;
     uidHelper uh;
 };

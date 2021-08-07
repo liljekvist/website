@@ -1,6 +1,7 @@
 #pragma once
 #include <drogon/HttpController.h>
 #include "api_uidHelper.h"
+#include "api_cookieHelper.h"
 using namespace drogon;
 namespace api
 {
@@ -26,5 +27,6 @@ class postController:public drogon::HttpController<postController>
      //void makeVote(const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback, int uid, int postid, int vote);
      uidHelper helper;
      dbHelper db;
+     cookieHelper ch;
 };
 }
