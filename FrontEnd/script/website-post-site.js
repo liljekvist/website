@@ -26,18 +26,27 @@ $(function(){
         pageText.appendChild(document.createTextNode(postText));
     };
 
-    $("#button").on('click', function(){
-        $.post("https://192.168.0.250:1000/postComment",
-        {
-            uid: 0, //måste hämta
-            postid: id,
-            msg: $('#cInput').val(),
-        },
-        //varför data och status måste vara på en speciell plats istället för keys är beyond me
-        function(data, status){
-            console.log("\nStatus: " + status);
-        });
-        $('#cInput').val('');
+    $('#button').on('click', function(){
+        const msg = $('#cInput').val();
+        const uid = sessionStorage.getItem('uid');
+        if (uid != null) {
+            if (msg != '') {
+                $.post('https://192.168.0.250:1000/postComment',
+                {
+                    uid: sessionStorage.getItem('uid'),
+                    postid: id,
+                    msg: $('#cInput').val(),
+                },
+                function(data, status){
+                    console.log("\nStatus: " + status);
+                });
+                $('#cInput').val('');
+            } else {
+                alert('Error; No msg')
+            }
+        } else {
+            alert('Error; No UID, Make post to get one');
+        }
     });
 
     async function fetchComment() {
@@ -55,7 +64,6 @@ $(function(){
     }
 
     function printComment (key) { // inte vara async då det inte finns något att vänta på
-        console.log(key);
         let msg = key[1].substring(8)
         $('<li>').appendTo('#comments').attr('id', key).addClass('comment').text(msg);
     }

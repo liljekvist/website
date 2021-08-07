@@ -5,16 +5,20 @@ $(function() {
             uuid = uuid.substr(5);
             $('#uuid').text(uuid);
             getUID(uuid);
+            $('.signBtn').hide();
         } else {
+            $('.signBtn').show();
             //vad den ska göra ifall det inte finns cookie 
         }
     }
 
+
     function getCookie(){
         const allCookies = document.cookie.split(';');
         for (let i = 0; i < allCookies.length; i++) {
-            if (allCookies[i].substr(0, 4) == 'uuid') {
-                return allCookies[i];
+            let cookie = allCookies[i].trim();
+            if (cookie.substr(0, 4) == 'uuid') {
+                return cookie;
             }
         }
     }
@@ -30,21 +34,6 @@ $(function() {
         sessionStorage.setItem('uid', uid);
         $('#userId').text(uid);
     }
-
-    //First Time Page StartUp
-    /* Set coockies USE LATER
-    function setCookie(uid, uuid, date){
-        let expires = '';
-        if (date) {
-            const date = new Date();
-            date.setTime(date.getTime() + (date*24*60*60*1000))
-            expires = '; expires=' + date.toUTCString();
-        }
-        document.cookie = uid + '=' + (uuid || '') + expires + '; path=/'
-    }
-    setCookie();
-
-    */
 
             //Get UUID array
             //From the URL
@@ -72,6 +61,36 @@ $(function() {
         post.title = postId;
         post.href = "https://192.168.0.250/post?id="+postId;
         document.getElementById(postId).appendChild(post);
+    }
+
+    function setCookie(uuid){
+        const date = new Date();
+        date.setFullYear(2022, 0, 1); //Borde inte vara statisk men men
+        expires = '; expires=' + date.toUTCString();
+        document.cookie = 'uuid' + '=' + (uuid || '') + expires + '; path=/';
+        checkCookie();
+    }
+    function login(data, input) {
+        if (data.uuidExists) {
+            setCookie(input);
+        } else {
+            alert('Error; this UUID does not exist')
+        }
+    }
+
+    $('#loginBtn').on('click', function() {
+        const input = window.prompt("UUID");
+        if ((input == null)||(input == '')) {
+            alert('Faild');
+        } else {
+            loginCheck(input);
+        }
+    })
+
+    async function loginCheck(input) {
+        await fetch('https://192.168.0.250:1000/json/uuidInDb?uuid=' + input)
+        .then(response => response.json())
+        .then(data => login(data, input));
     }
     checkCookie();
 });
