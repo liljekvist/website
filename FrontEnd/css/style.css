@@ -31,4 +31,11 @@
     bottom: 10px;
     right: 10px;
 }
+.remove {
+    margin-left: 20px;
+}
+.remove:hover{
+    cursor: pointer;
+    color: red;
+}
 

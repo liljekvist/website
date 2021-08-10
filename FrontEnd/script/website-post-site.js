@@ -11,7 +11,7 @@ $(function(){
         })
         
     } catch (error) {
-        console.log('Error i api' + error);
+        console.log('Error: ' + error);
         return null;
     }
     function printPost(obj) {
@@ -53,14 +53,17 @@ $(function(){
         const response = await fetch('https://192.168.0.250:1000/json/getComments?postid='+id);
         const data = await response.json();
         let comment = [];
-
-        data.forEach(obj => {
-            Object.entries(obj).forEach(([key, value]) => {
-                comment.push(`${key} ${value}`)
+        try {
+            data.forEach(obj => {
+                Object.entries(obj).forEach(([key, value]) => {
+                    comment.push(`${key} ${value}`)
+                });
+                printComment(comment);
+                comment = [];
             });
-            printComment(comment);
-            comment = [];
-        });
+        } catch {
+            $('<li>').appendTo('#comments').attr('id', 'placeholder').addClass('comment').text('No comments yet');
+        }
     }
 
     function printComment (key) { // inte vara async då det inte finns något att vänta på

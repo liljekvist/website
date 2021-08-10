@@ -1,5 +1,5 @@
 $(function(){
-    
+    //Useless button
     const button = document.getElementById("#button");
     
     function getTitle() {
