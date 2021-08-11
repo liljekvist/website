@@ -28,7 +28,7 @@ $(function() {
     }
     //Fetch the UID from the UUID via a get req to the API
     async function getUID(uuid){
-        await fetch('https://192.168.0.250:1000/json/getUid?uuid=' + uuid)
+        await fetch(`https://192.168.0.250:1000/json/getUid?uuid=${uuid}`)
         .then(response => response.json())
         .then(data => useUid(data))
         .catch((err) => {
@@ -68,7 +68,7 @@ $(function() {
         let linkText = document.createTextNode(title);
         post.appendChild(linkText);
         post.title = postId;
-        post.href = "https://192.168.0.250/post?id="+postId;
+        post.href = `https://192.168.0.250/post?id=${postId}`;
         document.getElementById(postId).appendChild(post);
     }
 
@@ -76,7 +76,7 @@ $(function() {
         const date = new Date();
         date.setFullYear(2022, 0, 1); //Borde inte vara statisk men men
         expires = '; expires=' + date.toUTCString();
-        document.cookie = 'uuid' + '=' + (uuid || '') + expires + '; path=/';
+        document.cookie = 'uuid=' + (uuid || '') `${expires}; path=/`;
         checkCookie();
     }
     function login(data, input) {
@@ -97,7 +97,7 @@ $(function() {
     })
 
     async function loginCheck(input) {
-        await fetch('https://192.168.0.250:1000/json/uuidInDb?uuid=' + input)
+        await fetch(`https://192.168.0.250:1000/json/uuidInDb?uuid=${input}`)
         .then(response => response.json())
         .then(data => login(data, input))
         .catch((err) => {
@@ -115,7 +115,7 @@ $(function() {
         }
     }
     function makeRemoveButton(id) {
-        $('<span>').appendTo('#' + id).addClass('remove').text('X');
+        $('<span>').appendTo(`#${id}`).addClass('remove').text('X');
     };
     $(document).on('click', '.remove', function() {
         const parentId = $(this).parent().attr('id');
@@ -126,7 +126,7 @@ $(function() {
     function deletePost(idOfItemDeleted) {
         $.ajax({
             type: 'DELETE',
-            url: 'https://192.168.0.250:1000/delete/deletePost?postid='+ idOfItemDeleted +'&' + getCookie(),
+            url: `https://192.168.0.250:1000/delete/deletePost?postid=${idOfItemDeleted}&${getCookie()}`,
             success: function (response) {
                 console.log(response);
             }

@@ -3,7 +3,7 @@ $(function(){
     /**Get and show post and existing comments*/
     try {
         $.ajax({
-            url: 'https://192.168.0.250:1000/json/post?postid=' + id,
+            url: `https://192.168.0.250:1000/json/post?postid=${id}`,
             type: 'GET',
             success: function(result){
                 printPost(result);
@@ -38,19 +38,19 @@ $(function(){
                     msg: $('#cInput').val(),
                 },
                 function(data, status){
-                    console.log("\nStatus: " + status);
+                    console.log('\nStatus: ' + status);
                 });
                 $('#cInput').val('');
             } else {
-                alert('Error; No msg')
+                alert('Error: No msg')
             }
         } else {
-            alert('Error; No UID, Make post to get one');
+            alert('Error: No UID, Make post to get one');
         }
     });
 
     async function fetchComment() {
-        const response = await fetch('https://192.168.0.250:1000/json/getComments?postid='+id);
+        const response = await fetch(`https://192.168.0.250:1000/json/getComments?postid=${id}`);
         const data = await response.json();
         let comment = [];
         try {
