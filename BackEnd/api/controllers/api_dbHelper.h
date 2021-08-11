@@ -105,6 +105,37 @@ class dbHelper {
           std::cerr << "Errors:" << e << std::endl;
       }
   }
+  bool deletePost(const int postid, const int uid){
+    auto clientPtr = drogon::app().getDbClient();
+    std::ostringstream query;
+    query << "DELETE FROM `posts` WHERE uid = " << uid << " && postid = " << postid << ";";
+    LOG_DEBUG << query.str();
+    auto f = clientPtr->execSqlAsyncFuture(query.str(),"default");
+      try
+      {
+          auto r = f.get();
+          LOG_DEBUG << "Delete post "<< postid << " Successful!";
+          std::ostringstream query2;
+          query2 << "DROP TABLE comments_" << postid <<";";
+          LOG_DEBUG << query2.str();
+          auto f = clientPtr->execSqlAsyncFuture(query2.str(),"default");
+            try{
+              LOG_DEBUG << "Drop Comment Table Comments_"<< postid << " Successful!";
+              auto r = f.get();
+              return true;
+            }
+
+            catch (int e){
+              LOG_DEBUG << "Drop Comment Table Comments_"<< postid << " Failed! ERROR " << e << "!";
+              return false;
+            }
+      }
+      catch (int e)
+      {
+        LOG_DEBUG << "Delete post "<< postid << " Failed! ERROR " << e << "!";
+        return false;
+      }
+  }
 
   //Mycket mer preformence snällt att använda detta sätt men också mer kod att kladda med.
   //template <> const std::string getDBResult<std::string>(std::string table, std::string column, std::string key, std::string value);
