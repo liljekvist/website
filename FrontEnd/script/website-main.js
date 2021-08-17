@@ -125,7 +125,7 @@ $(function() {
     //Kanske borde bli async men pallar inte nu
     function deletePost(idOfItemDeleted) {
         $.ajax({
-            type: 'DELETE',
+            type: 'POST',
             url: `https://192.168.0.250:1000/delete/deletePost?postid=${idOfItemDeleted}&${getCookie()}`,
             success: function (response) {
                 console.log(response);

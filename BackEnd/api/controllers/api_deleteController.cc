@@ -8,6 +8,7 @@ void deleteController::deletePost(const HttpRequestPtr& req, std::function<void 
         auto uid = uh.uidFromUuid(uuid);
         if(db.deletePost(postid, uid)){
             //borttagning lyckades
+            ret["frick"] = "Fan va fint att de funkar!";
         }
         else{
             //fel uid
@@ -20,5 +21,7 @@ void deleteController::deletePost(const HttpRequestPtr& req, std::function<void 
     }
     auto resp=HttpResponse::newHttpJsonResponse(ret);
     resp->addHeader("Access-Control-Allow-Origin", "*"); //Fix för CORS
+    resp->addHeader("Access-Control-Allow-Methods", "DELETE");
+    resp->addHeader("Access-Control-Allow-Headers", "x-requested-with,content-type");
     callback(resp);
 }
