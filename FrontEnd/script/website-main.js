@@ -5,7 +5,6 @@ $(function() {
         let uuid = getCookie();
         if(uuid != null) {
             uuid = uuid.substr(5);
-            $('#uuid').text(uuid);
             getUID(uuid);
             $('.signBtn').hide();
             $('#loginBtn').hide();
@@ -105,6 +104,10 @@ $(function() {
         });
     }
 
+    $('#showUuid').on('click', function () {
+        alert(`Your private login key: ${getCookie().substr(6)}`)
+    })
+
     function ownerPost() {
         const user = sessionStorage.getItem('uid');
         let userPost = document.getElementsByClassName(user);
@@ -120,12 +123,13 @@ $(function() {
     $(document).on('click', '.remove', function() {
         const parentId = $(this).parent().attr('id');
         deletePost(parentId);
+        $(`#${parentId}`).remove();
     });
     
     //Kanske borde bli async men pallar inte nu
-    function deletePost(idOfItemDeleted) {
+    async function deletePost(idOfItemDeleted) {
         $.ajax({
-            type: 'POST',
+            type: 'DELETE',
             url: `https://192.168.0.250:1000/delete/deletePost?postid=${idOfItemDeleted}&${getCookie()}`,
             success: function (response) {
                 console.log(response);

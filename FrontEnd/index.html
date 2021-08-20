@@ -10,8 +10,7 @@
     </head>
     <body>
         <div class="userIdBox">
-            User ID: <span id="userId"></span><br>
-            UUID: <span id="uuid"></span>
+            Public id: <span id="userId"></span><br>
         </div>
         <div id="postListContainer">
             <ul id="postList">
@@ -24,13 +23,12 @@
                 <input type="text" id="fpost" name="postTitle" placeholder="A good title">
             </form>
         </div>
-        <div>
+        <div id="userButtons">
             <button id="loginBtn" type="button">Login</button>
-        </div>
-        <div>
             <form class="signBtn" action="https://192.168.0.250:1000/registerUser" id="post" method="POST">
                 <button class="signBtn">Sign Up</button>
             </form>
+            <button id="showUuid">Show Login Key</button>
         </div>
     </body>
     <script src="script/website-main.js"></script>
