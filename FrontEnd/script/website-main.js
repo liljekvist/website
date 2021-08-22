@@ -136,5 +136,23 @@ $(function() {
             }
         });   
     }
+
+    $('#navIcon').on('click', function() {
+        $(this).toggleClass('open');
+        if (!$('#navIcon').hasClass('open')) {
+            $('#sideSlide').animate({
+                width: '5rem'
+            },'fast')
+            $('.iconText').hide();
+            return
+        }
+        $('#sideSlide').animate({
+            width: 300
+        },'fast')
+        setTimeout(function(){
+            $('.iconText').show();
+        }, 155);
+    })
+
     checkCookie();
 });

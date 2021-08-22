@@ -9,26 +9,38 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </head>
     <body>
-        <div class="userIdBox">
-            Public id: <span id="userId"></span><br>
+        <div id="content">
+            <div class="userIdBox">
+                Public id: <span id="userId"></span><br>
+            </div>
+            <div id="postListContainer">
+                <ul id="postList">
+                    <!--Post from API-->
+                </ul>
+            </div>
+            <div class="makePost">
+                <h1>Make post</h1>
+                <form action="submit/index.html">
+                    <input type="text" id="fpost" name="postTitle" placeholder="A good title">
+                </form>
+            </div>
         </div>
-        <div id="postListContainer">
-            <ul id="postList">
-                <!--Post from API-->
-            </ul>
-        </div>
-        <div class="makePost">
-            <h1>Make post</h1>
-            <form action="submit/index.html">
-                <input type="text" id="fpost" name="postTitle" placeholder="A good title">
+        <div id="sideSlide">
+            <div id="navIcon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <input id="loginBtn" class="userIcon" type="image" src="pic/login.png"></input>
+            <span id="loginText" class="iconText">Login</span>
+            <form action="https://192.168.0.250:1000/registerUser" id="post" method="POST">
+                <input type="image" id="signBtn" class="userIcon" src="pic/signup.png"></input>
             </form>
-        </div>
-        <div id="userButtons">
-            <button id="loginBtn" type="button">Login</button>
-            <form class="signBtn" action="https://192.168.0.250:1000/registerUser" id="post" method="POST">
-                <button class="signBtn">Sign Up</button>
-            </form>
-            <button id="showUuid">Show Login Key</button>
+            <span id="signUpText" class="iconText">Sign Up</span>
+            <div id="privateInformation">
+                <input type="image" id="showUuid" class="userIcon" src="pic/key.png"></input>
+                <span id="key" class="iconText">Key</span>
+            </div>
         </div>
     </body>
     <script src="script/website-main.js"></script>
