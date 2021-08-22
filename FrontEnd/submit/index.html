@@ -7,9 +7,10 @@
         <title>Posts</title>
         <link rel="stylesheet" href="../css/style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="../script/website-main.js" defer></script>
     </head>
     <body>
-        <div class="container">
+        <div id="content">
             <form action="https://192.168.0.250:1000/post" id="post" method="POST">
                 <label for="title">Title</label><br>
                 <input type="text" name="title" id="title" placeholder="Title"><br><br>
@@ -18,6 +19,34 @@
                 <button id="button">Create post</button>
             </form>
         </div>
+        <div id="sideSlide">
+            <div id="navIcon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div id="creatPost">
+                <input id="creatBtn" class="userIcon" type="image" src="../pic/creat.png"></input>
+                <span id="creatText" class="iconText">Creat post</span>
+            </div>
+            <div id="login">
+                <input id="loginBtn" class="userIcon" type="image" src="../pic/login.png"></input>
+                <span id="loginText" class="iconText">Login</span> 
+            </div>
+            <div id="signup">
+                <form action="https://192.168.0.250:1000/registerUser" id="sign" method="POST">
+                    <input type="image" id="signBtn" class="userIcon" src="../pic/signup.png"></input>
+                </form>
+                <button type="submit" form="sign" id="signText" class="iconText">Sign Up</button>
+            </div>
+            <div id="privateInformation">
+                <input type="image" id="showUuid" class="userIcon" src="../pic/key.png"></input>
+                <span id="key" class="iconText">Key</span>
+            </div>
+            <div id="logout">
+                <input id="logoutBtn" class="userIcon" type="image" src="../pic/logout.png"></input>
+                <span id="logoutText" class="iconText">Logout</span>
+            </div>
+        </div>
     </body>
-    <script src="../script/website-make-post.js"></script>
 </html>

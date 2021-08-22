@@ -12,12 +12,7 @@ body{
     border-width: 1px;
     border-style: solid;
 }
-.makePost{
-    bottom: 100px;
-    left: 200px;
-    border-style: groove;
-    padding: 10px;
-}
+
 #pageTitle{
     font-size: 2em;
     margin: 10px;
@@ -55,10 +50,9 @@ body{
 
 .userIcon{
     margin-top: 40px;
-    list-style: none;
     padding: 0;
     margin-left: 14px;
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
 }
@@ -135,7 +129,25 @@ body{
     display: none;
     position: fixed;
     left: 125px;
-    margin-top: -30px;
+    margin-top: 55px;
     font-weight: bold;
     font-size: larger;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.iconText:hover{
+    cursor: pointer; 
+}
+
+.iconText#signText{
+    margin-top: -35px;
+    border: none;
+    background-color: transparent;
+    font-family: 'Times New Roman', Times, serif;
+    padding: 0px;
+}
+.userIcon#creatBtn{
+    display: inline;
 }
