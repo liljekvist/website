@@ -4,7 +4,7 @@ $(document).ready(function(){
         xhrFields: {
             withCredentials: true
         },
-        type: "POST",
+        type: "PUT",
         url: "https://192.168.0.250:1000/registerUser"
       }).done(function (data) {
           console.log(data);

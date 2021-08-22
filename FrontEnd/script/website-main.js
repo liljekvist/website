@@ -163,14 +163,27 @@ $(function() {
     })
 
     $('#logoutBtn, #logoutText').on('click', function() {
+        console.log('hej');
         document.cookie = 'uuid= ; expires = Thu, 01 Jan 1970 00:00:00 GMT'
         sessionStorage.clear();
-        location.reload();
+        //document.location.href = 'https://192.168.0.250/'
     });
 
     $('#creatBtn, #creatText').on('click', function(){
         document.location.href='https://192.168.0.250/submit';
     })
+
+    $("#signBtn").click(function(){
+        $.ajax({ //Någonting här fackar men vet inte vad det är
+          xhrFields: {
+              withCredentials: true
+          },
+          type: "PUT",
+          url: "https://192.168.0.250:1000/registerUser"
+        }).done(function (data) {
+            console.log(data);
+        });
+      });
 
     //Post/comment site
     /**Get and show post and existing comments*/
@@ -206,33 +219,30 @@ $(function() {
         pageText.appendChild(document.createTextNode(postText));
     };
 
-    $('#button').on('click', function(){
+    $('#cButton').on('click', function(){
         const id = window.location.search.substring(4)
         const msg = $('#cInput').val();
         const uid = sessionStorage.getItem('uid');
-        if (uid != null) {
-            if (msg != '') {
-                $.post('https://192.168.0.250:1000/postComment',
-                {
-                    uid: sessionStorage.getItem('uid'),
-                    postid: id,
-                    msg: $('#cInput').val(),
-                },
-                function(data, status){
-                    console.log('\nStatus: ' + status);
-                });
-                $('#cInput').val('');
-            } else {
-                alert('Error: No msg')
-            }
-        } else {
-            alert('Error: No UID, Make post to get one');
+        if (uid == null) {
+            return alert('Need to login to comment, make post or sign up to get one');
         }
+        if (msg == '') {
+            return alert('Error: No msg');
+        }
+        $.post('https://192.168.0.250:1000/postComment',
+            {
+                uid: sessionStorage.getItem('uid'),
+                postid: id,
+                msg: $('#cInput').val(),
+            },
+            function(data, status){
+                console.log('\nStatus: ' + status);
+            });
+        location.reload();
     });
 
     async function fetchComment() {
         const id = window.location.search.substring(4);
-        console.log("hej");
         const response = await fetch(`https://192.168.0.250:1000/json/getComments?postid=${id}`);
         const data = await response.json();
         let comment = [];
@@ -247,7 +257,7 @@ $(function() {
         } catch {
             $('<li>').appendTo('#comments').attr('id', 'placeholder').addClass('comment').text('No comments yet');
         }
-        ownerPost();
+        //ownerPost();
     }
 
     function printComment (key) { // inte vara async då det inte finns något att vänta på
