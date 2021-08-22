@@ -4,7 +4,6 @@ $(function() {
     function checkCookie() {
         let uuid = getCookie();
         if(uuid != null) {
-            uuid = uuid.substr(5);
             getUID(uuid);
             $('.signBtn').hide();
             $('#loginBtn').hide();
@@ -21,6 +20,7 @@ $(function() {
         for (let i = 0; i < allCookies.length; i++) {
             let cookie = allCookies[i].trim();
             if (cookie.substr(0, 4) == 'uuid') {
+                cookie = cookie.substr(5);
                 return cookie;
             }
         }
@@ -130,7 +130,7 @@ $(function() {
     async function deletePost(idOfItemDeleted) {
         $.ajax({
             type: 'DELETE',
-            url: `https://192.168.0.250:1000/delete/deletePost?postid=${idOfItemDeleted}&${getCookie()}`,
+            url: `https://192.168.0.250:1000/delete/deletePost?postid=${idOfItemDeleted}&uuid=${getCookie()}`,
             success: function (response) {
                 console.log(response);
             }
