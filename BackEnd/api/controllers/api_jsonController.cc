@@ -19,7 +19,7 @@ void jsonController::getPosts(const HttpRequestPtr& req, std::function<void (con
         i++;
     }
     auto resp=HttpResponse::newHttpJsonResponse(ret);
-    resp->addHeader("Access-Control-Allow-Origin", "*"); //Fix för CORS
+    resp->addHeader("Access-Control-Allow-Origin", "https://192.168.0.250"); //Fix för CORS
     callback(resp);
 }
 
@@ -29,7 +29,7 @@ void jsonController::getUidFromUuid(const HttpRequestPtr& req, std::function<voi
     json["uid"] = uid;
     json["uuid"] = uuid;
     auto resp=HttpResponse::newHttpJsonResponse(json);
-    resp->addHeader("Access-Control-Allow-Origin", "*"); //Fix för CORS
+    resp->addHeader("Access-Control-Allow-Origin", "https://192.168.0.250"); //Fix för CORS
     callback(resp);
 }
 
@@ -52,7 +52,7 @@ void jsonController::getCommentsForPost(const HttpRequestPtr& req, std::function
         i++;
     }
     auto resp=HttpResponse::newHttpJsonResponse(json);
-    resp->addHeader("Access-Control-Allow-Origin", "*"); //Fix för CORS
+    resp->addHeader("Access-Control-Allow-Origin", "https://192.168.0.250"); //Fix för CORS
     callback(resp);
 }
 
@@ -75,7 +75,7 @@ void jsonController::getPost(const HttpRequestPtr &req, std::function<void(const
     }
 
     auto resp=HttpResponse::newHttpJsonResponse(jsonArray);
-    resp->addHeader("Access-Control-Allow-Origin", "*"); //Fix för CORS
+    resp->addHeader("Access-Control-Allow-Origin", "https://192.168.0.250"); //Fix för CORS
     callback(resp);
 }
 
@@ -83,6 +83,6 @@ void jsonController::uuidInDB(const HttpRequestPtr &req, std::function<void(cons
     Json::Value jsonArray;
     jsonArray["uuidExists"] = uh.uuidExists(uuid);
     auto resp=HttpResponse::newHttpJsonResponse(jsonArray);
-    resp->addHeader("Access-Control-Allow-Origin", "*"); //Fix för CORS
+    resp->addHeader("Access-Control-Allow-Origin", "https://192.168.0.250"); //Fix för CORS
     callback(resp);
 }

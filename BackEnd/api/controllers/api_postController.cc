@@ -24,7 +24,8 @@ void postController::makePost(const HttpRequestPtr &req, std::function<void(cons
     oss1 << "INSERT INTO `posts`(`postid`, `uid`, `title`, `msg`, `date`) VALUES (NULL," << uid << ",'" << title << "','" << msg << "','" << dateStr << "')";
     db.insertToDb(oss1.str());
     db.makeNewTableForPost(db.getDBResult<int, int>("posts", "postid", "uid", uid));
-    resp->addHeader("Access-Control-Allow-Origin", "*"); //Fix för CORS
+    resp->addHeader("Access-Control-Allow-Origin", "https://192.168.0.250"); //Fix för CORS
+    resp->addHeader("Access-Control-Allow-Credentials", "true");
     callback(resp);
 }
 
@@ -36,7 +37,8 @@ void postController::makeComment(const HttpRequestPtr &req, std::function<void(c
     std::ostringstream oss1;
     oss1 << "INSERT INTO `comments_" << postid << "`(`id`, `commentuid`, `message`, `date`, `upvotes`) VALUES (NULL," << uid << ",'" << msg << "','" << dateStr << "',0)";
     db.insertToDb(oss1.str());
-    resp->addHeader("Access-Control-Allow-Origin", "*"); //Fix för CORS
+    resp->addHeader("Access-Control-Allow-Origin", "https://192.168.0.250"); //Fix för CORS
+    resp->addHeader("Access-Control-Allow-Credentials", "true");
     callback(resp);
 }
 
@@ -67,7 +69,9 @@ void postController::registerUser(const HttpRequestPtr &req, std::function<void(
     std::string uuid = drogon::utils::getUuid();
     auto c = ch.makeUserCookie(uuid);
     int uid = helper.addUIDtoDB(uuid);
+    resp->addHeader("Access-Control-Allow-Credentials", "true");
     resp->addCookie(c);
-    resp->addHeader("Access-Control-Allow-Origin", "*"); //Fix för CORS
+    resp->addHeader("Access-Control-Allow-Origin", "https://192.168.0.250"); //Fix för CORS
+    //LOG_DEBUG << resp->getHeader("Access-Control-Allow-Credentials") << "\n" << resp->getHeader("Access-Control-Allow-Origin");
     callback(resp);
 }

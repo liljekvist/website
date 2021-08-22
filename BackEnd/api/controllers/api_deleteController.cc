@@ -23,7 +23,7 @@ void deleteController::deletePost(const HttpRequestPtr& req, std::function<void 
         ret["error"] = "UUID does not exist in database!";
     }
     auto resp=HttpResponse::newHttpJsonResponse(ret);
-    resp->addHeader("Access-Control-Allow-Origin", "*"); //Fix för CORS
+    resp->addHeader("Access-Control-Allow-Origin", "https://192.168.0.250"); //Fix för CORS
     resp->addHeader("Access-Control-Allow-Methods", "DELETE");
     resp->addHeader("Access-Control-Allow-Headers", "x-requested-with,content-type");
     callback(resp);

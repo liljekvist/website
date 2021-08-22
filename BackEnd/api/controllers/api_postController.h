@@ -2,6 +2,7 @@
 #include <drogon/HttpController.h>
 #include "api_uidHelper.h"
 #include "api_cookieHelper.h"
+
 using namespace drogon;
 namespace api
 {
@@ -12,9 +13,9 @@ class postController:public drogon::HttpController<postController>
     //use METHOD_ADD to add your custom processing function here;
     //METHOD_ADD(postController::get,"/{2}/{1}",Get);//path is /api/postController/{arg2}/{arg1}
     //METHOD_ADD(postController::your_method_name,"/{1}/{2}/list",Get);//path is /api/postController/{arg1}/{arg2}/list
-    ADD_METHOD_TO(postController::makePost,"/post?title={1}&msg={2}", Post);
-    ADD_METHOD_TO(postController::makeComment,"/postComment?uid={1}&postid={2}&msg={3}", Post);
-    ADD_METHOD_TO(postController::registerUser,"/registerUser", Post); // använda put?
+    ADD_METHOD_TO(postController::makePost,"/post?title={1}&msg={2}", Post,Options, "filters::CorsFilter");
+    ADD_METHOD_TO(postController::makeComment,"/postComment?uid={1}&postid={2}&msg={3}", Post,Options, "filters::CorsFilter");
+    ADD_METHOD_TO(postController::registerUser,"/registerUser", Put,Options, "filters::CorsFilter"); // använda put?
     //ADD_METHOD_TO(postController::makeVote,"/postVote?uid={1}&postid={2}&vote={3}", Post);
 
 
