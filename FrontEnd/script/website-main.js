@@ -9,11 +9,11 @@ $(function() {
             $('#loginText, #signText').hide()
             $('#loginText, #signText').removeClass('iconText');
             return
-
         }
         $('#loginBtn, #signBtn').show();
         $('#key, #logoutText').hide();
         $('#key, #logoutText').removeClass('iconText');
+        console.log('Inte inloggad');
     }
 
     //Looks for the cookie with the right "Name"
@@ -164,26 +164,35 @@ $(function() {
 
     $('#logoutBtn, #logoutText').on('click', function() {
         console.log('hej');
-        document.cookie = 'uuid= ; expires = Thu, 01 Jan 1970 00:00:00 GMT'
+        document.cookie = 'uuid= ; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/'
         sessionStorage.clear();
-        //document.location.href = 'https://192.168.0.250/'
+        location.reload();
     });
 
     $('#creatBtn, #creatText').on('click', function(){
         document.location.href='https://192.168.0.250/submit';
     })
 
-    $("#signBtn").click(function(){
+    $('#homeBtn, #homeText').on('click', function(){
+        document.location.href='https://192.168.0.250/';
+    })
+    
+    $("#signBtn, #signText").on('click', function(){
         $.ajax({ //Någonting här fackar men vet inte vad det är
-          xhrFields: {
-              withCredentials: true
-          },
-          type: "PUT",
-          url: "https://192.168.0.250:1000/registerUser"
-        }).done(function (data) {
-            console.log(data);
-        });
-      });
+            xhrFields: {
+                withCredentials: true
+            },
+            type: "PUT",
+            url: "https://192.168.0.250:1000/registerUser", //Inte fungera på subsida. Den redirrar bara. Måste kolla
+            success: function() { 
+                location.reload();
+            },
+            error: function() { //shit vilken nödlösning
+                location.reload();
+            }
+        })
+        return false;
+    });
 
     //Post/comment site
     /**Get and show post and existing comments*/
@@ -266,9 +275,19 @@ $(function() {
         $('<li>').appendTo('#comments').attr('id', uid).addClass(`comment ${uid}`).text(msg);
     }
 
+    $('#title, #msg').on('blur', function() {
+        console.log("hej");
+        if (($.trim($('#title').val()).length === 0) || ($.trim($('#msg').val()).length === 0)){
+            alert('Field empty')
+            $('#pButton').prop('disabled', true);
+            return
+        }
+        console.log('båda fyllda');
+        $('#pButton').removeAttr("disabled")
+    })
+
     if (window.location.pathname.substr(0,6) == '/post/') {
         fetchComment();
-        
     }
     checkCookie();
 });

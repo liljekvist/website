@@ -142,12 +142,14 @@ body{
 }
 
 .iconText#signText{
-    margin-top: -35px;
     border: none;
     background-color: transparent;
     font-family: 'Times New Roman', Times, serif;
     padding: 0px;
 }
 .userIcon#creatBtn{
+    display: inline;
+}
+.userIcon#homeBtn{
     display: inline;
 }

@@ -15,8 +15,8 @@
                 <label for="title">Title</label><br>
                 <input type="text" name="title" id="title" placeholder="Title"><br><br>
                 <label for="msg">Post</label><br>
-                <textarea rows="4" cols="50" name="msg" placeholder="Enter text here..."></textarea><br><br>
-                <button id="button">Create post</button>
+                <textarea rows="4" cols="50" name="msg" id="msg" placeholder="Enter text here..."></textarea><br><br>
+                <button id="pButton" disabled>Create post</button>
             </form>
         </div>
         <div id="sideSlide">
@@ -24,6 +24,10 @@
                 <span></span>
                 <span></span>
                 <span></span>
+            </div>
+            <div id="home">
+                <input id="homeBtn" class="userIcon" type="image" src="../pic/home.png"></input>
+                <span id="homeText" class="iconText">Home</span>
             </div>
             <div id="creatPost">
                 <input id="creatBtn" class="userIcon" type="image" src="../pic/creat.png"></input>
@@ -34,18 +38,16 @@
                 <span id="loginText" class="iconText">Login</span> 
             </div>
             <div id="signup">
-                <form action="https://192.168.0.250:1000/registerUser" id="sign" method="POST">
-                    <input type="image" id="signBtn" class="userIcon" src="../pic/signup.png"></input>
-                </form>
+                <input type="image" id="signBtn" class="userIcon" src="../pic/signup.png"></input>
                 <button type="submit" form="sign" id="signText" class="iconText">Sign Up</button>
-            </div>
-            <div id="privateInformation">
-                <input type="image" id="showUuid" class="userIcon" src="../pic/key.png"></input>
-                <span id="key" class="iconText">Key</span>
             </div>
             <div id="logout">
                 <input id="logoutBtn" class="userIcon" type="image" src="../pic/logout.png"></input>
                 <span id="logoutText" class="iconText">Logout</span>
+            </div>
+            <div id="privateInformation">
+                <input type="image" id="showUuid" class="userIcon" src="../pic/key.png"></input>
+                <span id="key" class="iconText">Key</span>
             </div>
         </div>
     </body>
